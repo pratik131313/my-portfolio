@@ -65,6 +65,26 @@ export const experiences = [
     description: "Roquette is a B2B pharma,health,beauty ingredient supplier. They wanted to implement AI in several parts of their workflows so that their processes are streamlined, faster and better. Deliverables included AI in client identification and targetting, marketing and content creation usecases, Ml based inventory, supply chain and manufacturing enhancements.",
   },
   {
+    id: "bcg",
+    company: "Inverto",
+    logo: `${base}media/images/inverto.webp`,
+    role: "Consulting Project",
+    location: "France",
+    start: "Dec 2025",
+    end: "Dec 2025",
+    description: "Our client, Harvest, an agricultural cooperative based in northern France, is considering a merger with another local cooperative, Bloom, following Bloom’s recent offer. The potential merger aims to strengthen their local market position and counteract both companies’ ongoing decline. Harvest & Bloom have mandated BCG INVERTO in clean team to : 1. Assess the relevance of a merger with Bloom. 2. Identify standalone cost-reduction opportunities that can be implemented quickly, as well as potential cost synergies from the merger. The objective was to frame the client’s issue, design a suitable approach, identify key EBITDA optimization levers, assess the impact of each lever, and ultimately develop a recommendation for Harvest. Thank you all for your commitment.",
+  },
+  {
+    id: "sia",
+    company: "Sia Partners",
+    logo: `${base}media/images/sia.jpg`,
+    role: "Consulting Project",
+    location: "France",
+    start: "Dec 2025",
+    end: "Dec 2025",
+    description: "Our client Metallica had come up with a really robust greener replacement for the traditional blast furnace, which produces a significantly high amount carbon di oxide as opposed to their newer replacement (Electric Arc Furnace) which produces water vapour instead of CO2. So, now the question is, is the world ready for Green steel? When? How? Is the ROI good enough to invest and replace all the traditional furnaces??",
+  },
+  {
     id: "exp-2",
     company: "Appviewx",
     logo: `${base}media/images/appviewx-companyupdate-1747133054374.webp`,
@@ -72,7 +92,7 @@ export const experiences = [
     location: "India",
     start: "Jan 2023",
     end: "June 2025",
-    description: "Built PowerBI dashboards to track delivery progress and operational KPIs (throughput, cycle time, readiness), highlighting risks and corrective actions for leadership. Owned a product workstream (3 of 9 products), managing roadmap, prioritizing backlog, and aligning Engineering, Customer Success, and Design teams. Translated client pain points and product metrics into clear requirements, user stories, and acceptance criteria; managed iterative agile releases. Prepared executive status reports and facilitated recurring stakeholder meetings to ensure alignment and transparency. Proactively identified technical risks in complex web projects, partnering with developers on feasibility, dependencies, and mitigation strategies. Supported board activities including meeting coordination, materials preparation, and action tracking. Led customer-centric redesign initiatives, creating improved user journeys and Figma prototypes with UI/UX teams. Delivered a solution for DEXCOM that resolved SSL certificate inventory scaling challenges, improving process efficiency by 60%.",
+    description: "I Built PowerBI dashboards to track delivery progress and operational KPIs (throughput, cycle time, readiness), highlighting risks and corrective actions for leadership. Owned a product workstream (3 of 9 products), managing roadmap, prioritizing backlog, and aligning Engineering, Customer Success, and Design teams. Translated client pain points and product metrics into clear requirements, user stories, and acceptance criteria; managed iterative agile releases. Prepared executive status reports and facilitated recurring stakeholder meetings to ensure alignment and transparency. Proactively identified technical risks in complex web projects, partnering with developers on feasibility, dependencies, and mitigation strategies. Supported board activities including meeting coordination, materials preparation, and action tracking. Led customer-centric redesign initiatives, creating improved user journeys and Figma prototypes with UI/UX teams. Delivered a solution for DEXCOM that resolved SSL certificate inventory scaling challenges, improving process efficiency by 60%.",
   },
   {
     id: "exp-3",
@@ -82,7 +102,7 @@ export const experiences = [
     location: "India",
     start: "Aug 2021",
     end: "Sep 2022",
-    description: "Published an international research paper as the Primary Author on Video Quality Algorithms at WASET, GREECE and won the best paper award. Developed wastage reduction AI solutions and sustainability roadmaps for an automobile parts manufacturer, increased supplier quality and reduced inventory wastage by 45%. Implemented AI based Bio-Medical image processing surgery device for Johnsons&Johnsons to enable safer surgeries.  ",
+    description: "I Published an international research paper as the Primary Author on Video Quality Algorithms at WASET, GREECE and won the best paper award. Developed wastage reduction AI solutions and sustainability roadmaps for an automobile parts manufacturer, increased supplier quality and reduced inventory wastage by 45%. Implemented AI based Bio-Medical image processing surgery device for Johnsons&Johnsons to enable safer surgeries.  ",
   },
   {
     id: "exp-4",
@@ -97,7 +117,7 @@ export const experiences = [
   {
     id: "exp-5",
     company: "Chennai Institute of Technology",
-    logo: `${base}media/images/Header image 1600x .jpg`,
+    logo: `${base}media/images/cit.jpg`,
     role: "Content Team Lead",
     location: "India",
     start: "Jan 2021",
