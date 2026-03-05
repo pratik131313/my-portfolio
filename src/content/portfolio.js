@@ -14,41 +14,41 @@ export const profile = {
 
 export const projects = [
   {
-    id: "case-1",
+    id: "Skechers: Active running rebranding",
     type: "pdf",
-    title: "Omnichannel Retail Innovation Case",
+    title: "Skechers: Active running rebranding",
     year: "2026",
     thumbnail: `${base}media/images/Screenshot 2026-03-04 230825.png`,
     summary:
-      "Research-driven recommendations on store tech + customer journey improvements.",
-    description: "Add a fuller description here (context → approach → outcome).",
+      "Rebranding Skechers to place it alongside the leaders of active running footwear!",
+    description: "When we hear Skechers, we think comfort and comfortable running. But when active runners hears Skechers, they think of a lazy afternoon run, not their everyday track running. Why? Check out my analysis on this!",
     pdf: `${base}media/pdf/SKECHERS_ANALYSIS.pdf`,
   },
   {
     id: "vid-1",
     type: "video",
-    title: "Project walkthrough",
+    title: "Alchime by YSL",
     year: "2025",
-    thumbnail: `${base}media/images/Screenshot 2026-01-14 005630.png`,
-    summary: "A short walkthrough of the approach, key insights, and outcomes.",
-    description: "What you did, what tools you used, what changed afterward.",
+    thumbnail: `${base}media/images/alchime.png`,
+    summary: "The unique scent of connection, that you cant buy.",
+    description: "What if you, your partner, your friend can create something that only both of you know the secret to? We introduce you Alchime by Yves Saint Laurent, a series of perfumes which is engineered specifically in a way that lets you combine any 2 perfumes together, and the result will produce a registered-named 3rd perfume which isnt available in any of the other bottles. Its unique. Its something that only both of you know the secret to!",
     video: {
       youtube:
-        "https://www.youtube.com/watch?v=lu87waNNWlY&list=RDlu87waNNWlY&start_radio=1",
+        "https://www.youtube.com/watch?v=oaZb9m_RgBc",
       // OR: src: `${base}media/video/demo-reel.mp4`,
     },
   },
   {
     id: "vid-2",
     type: "video",
-    title: "Project walkthrough",
-    year: "2025",
-    thumbnail: `${base}media/images/1_13822.webp`,
-    summary: "A short walkthrough of the approach, key insights, and outcomes.",
-    description: "What you did, what tools you used, what changed afterward.",
+    title: "Nespresso - Thankyou Mom.",
+    year: "2026",
+    thumbnail: `${base}media/images/nestle.png`,
+    summary: "Nespresso thanks each and every mother for all their untold and unrewarded efforts.",
+    description: "Nestle's Nespresso never had a specific emotional connection with its customers. Just plain old random adrenaline videos surrounding coffee. But what if a cup of coffee meant something much more?",
     video: {
       youtube:
-        "https://www.youtube.com/watch?v=qGh2e-yqEYQ&list=RDqGh2e-yqEYQ&start_radio=1",
+        "https://www.youtube.com/watch?v=TvGvWOVwrOk",
       // OR: src: `${base}media/video/demo-reel.mp4`,
     },
   },
