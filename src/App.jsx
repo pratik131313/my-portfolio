@@ -96,10 +96,8 @@ export default function App() {
 
 <AwardModal award={activeAward} onClose={() => setActiveAward(null)} />
 
-        <section
-  id="contact"
-  className="mt-14 rounded-2xl border border-white/10 bg-white/5 p-6"
->
+        <section id="contact" className="mt-14 rounded-2xl hero-glass border border-white/10 p-6">
+
   <div className="flex items-start justify-between gap-4">
     <h3 className="text-lg font-semibold">Contact</h3>
 
