@@ -114,3 +114,6 @@
   background: rgba(255,255,255,.05);
   border-color: rgba(255,255,255,.22);
 }
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }

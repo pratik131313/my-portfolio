@@ -14,7 +14,11 @@ function LogoCarousel({ experiences }) {
           >
             <div className="flex items-center gap-3">
               <div className="h-9 w-9 overflow-hidden rounded-xl border border-white/10 bg-white/5">
-                <img src={e.logo} alt={e.company} className="h-full w-full object-contain p-2" />
+                <img
+                  src={e.logo}
+                  alt={e.company}
+                  className="h-full w-full object-contain p-2"
+                />
               </div>
               <div className="text-sm text-zinc-100/90">{e.company}</div>
             </div>
@@ -29,13 +33,17 @@ function Roadmap({ experiences }) {
   const pathRef = useRef(null);
   const [points, setPoints] = useState([]);
 
-  // More breathing room at the bottom prevents the last card clipping/colliding
-  const H = useMemo(() => Math.max(900, experiences.length * 260) + 260, [experiences.length]);
+  const H = useMemo(
+    () => Math.max(900, experiences.length * 260) + 260,
+    [experiences.length]
+  );
 
-  // Build an S-curve that scales with H (so spacing stays consistent)
+  const W = 1100;
+
   const d = useMemo(() => {
-    const xL = 160;
-    const xR = 660;
+    // Re-centered S-curve for wider canvas
+    const xL = 260;
+    const xR = 900;
 
     const y0 = 80;
     const y1 = H * 0.28;
@@ -69,8 +77,13 @@ function Roadmap({ experiences }) {
   }, [experiences.length, d]);
 
   return (
-    <div className="relative mx-auto" style={{ width: 820, height: H }}>
-      <svg className="absolute inset-0" width="820" height={H} viewBox={`0 0 820 ${H}`}>
+    <div className="relative mx-auto" style={{ width: W, height: H }}>
+      <svg
+        className="absolute inset-0"
+        width={W}
+        height={H}
+        viewBox={`0 0 ${W} ${H}`}
+      >
         <defs>
           <linearGradient id="road" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stopColor="rgba(255,255,255,.30)" />
@@ -90,8 +103,13 @@ function Roadmap({ experiences }) {
       </svg>
 
       {experiences.map((e, i) => {
-        const p = points[i] || { x: 160, y: 80 + i * 240 };
+        const p = points[i] || { x: 260, y: 80 + i * 240 };
         const leftSide = i % 2 === 0;
+
+        const dir = leftSide ? -1 : 1;
+        const CARD_W = 380;
+        const GAP = 14;
+        const CONNECT = 22;
 
         return (
           <motion.div
@@ -106,19 +124,33 @@ function Roadmap({ experiences }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.05 * i }}
           >
-            <div className="mx-auto h-4 w-4 rounded-full border border-white/30 bg-white/20 backdrop-blur" />
+            <div className="mx-auto h-3.5 w-3.5 rounded-full border border-white/35 bg-white/25 backdrop-blur" />
 
             <div
-              className="glass-card mt-3 w-[360px] rounded-3xl p-4"
-              style={{ transform: leftSide ? "translateX(-320px)" : "translateX(40px)" }}
+              className="mt-2 h-px bg-white/25"
+              style={{ width: CONNECT, transform: `translateX(${dir * 10}px)` }}
+            />
+
+            <div
+              className="glass-card mt-2 rounded-3xl p-4"
+              style={{
+                width: CARD_W,
+                transform: `translateX(${dir * (GAP + CONNECT)}px)`,
+              }}
             >
               <div className="flex items-center gap-3">
                 <div className="h-9 w-9 overflow-hidden rounded-xl border border-white/10 bg-white/5">
-                  <img src={e.logo} alt={e.company} className="h-full w-full object-contain p-2" />
+                  <img
+                    src={e.logo}
+                    alt={e.company}
+                    className="h-full w-full object-contain p-2"
+                  />
                 </div>
                 <div className="min-w-0">
                   <p className="text-sm font-semibold leading-tight">{e.role}</p>
-                  <p className="text-xs text-zinc-300/80 truncate">{e.company}</p>
+                  <p className="text-xs text-zinc-300/80 truncate">
+                    {e.company}
+                  </p>
                 </div>
               </div>
 
@@ -163,7 +195,7 @@ export default function ExperienceModal({ open, onClose, experiences }) {
           />
 
           <motion.div
-            className="relative w-full max-w-6xl rounded-3xl glass-modal overflow-hidden"
+            className="relative w-full max-w-7xl rounded-3xl glass-modal overflow-hidden"
             initial={{ y: 18, scale: 0.985, opacity: 0 }}
             animate={{ y: 0, scale: 1, opacity: 1 }}
             exit={{ y: 18, scale: 0.985, opacity: 0 }}
@@ -189,7 +221,11 @@ export default function ExperienceModal({ open, onClose, experiences }) {
 
             <div className="p-4 sm:p-5 grid gap-5">
               <LogoCarousel experiences={experiences} />
-              <div className="overflow-y-auto" style={{ maxHeight: "70vh" }}>
+
+              <div
+                className="overflow-y-auto overflow-x-visible"
+                style={{ maxHeight: "78vh" }}
+              >
                 <Roadmap experiences={experiences} />
               </div>
             </div>
