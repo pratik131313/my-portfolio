@@ -29,7 +29,28 @@ function Roadmap({ experiences }) {
   const pathRef = useRef(null);
   const [points, setPoints] = useState([]);
 
-  const H = useMemo(() => Math.max(900, experiences.length * 260), [experiences.length]);
+  // More breathing room at the bottom prevents the last card clipping/colliding
+  const H = useMemo(() => Math.max(900, experiences.length * 260) + 260, [experiences.length]);
+
+  // Build an S-curve that scales with H (so spacing stays consistent)
+  const d = useMemo(() => {
+    const xL = 160;
+    const xR = 660;
+
+    const y0 = 80;
+    const y1 = H * 0.28;
+    const y2 = H * 0.52;
+    const y3 = H * 0.76;
+    const y4 = H - 120;
+
+    return `
+      M ${xL} ${y0}
+      C ${xR} ${y0 + 120}, ${xL} ${y1 - 120}, ${xR} ${y1}
+      S ${xL} ${y2}, ${xR} ${y2 + 120}
+      S ${xL} ${y3}, ${xR} ${y3 + 120}
+      S ${xL} ${y4 - 80}, ${xR} ${y4}
+    `;
+  }, [H]);
 
   useEffect(() => {
     const path = pathRef.current;
@@ -45,16 +66,11 @@ function Roadmap({ experiences }) {
     });
 
     setPoints(pts);
-  }, [experiences.length]);
+  }, [experiences.length, d]);
 
   return (
     <div className="relative mx-auto" style={{ width: 820, height: H }}>
-      <svg
-        className="absolute inset-0"
-        width="820"
-        height={H}
-        viewBox={`0 0 820 ${H}`}
-      >
+      <svg className="absolute inset-0" width="820" height={H} viewBox={`0 0 820 ${H}`}>
         <defs>
           <linearGradient id="road" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stopColor="rgba(255,255,255,.30)" />
@@ -64,13 +80,7 @@ function Roadmap({ experiences }) {
 
         <path
           ref={pathRef}
-          d={`
-            M 140 60
-            C 700 160, 120 300, 680 420
-            S 160 700, 680 820
-            S 160 1100, 680 1220
-            S 160 ${H - 220}, 680 ${H - 80}
-          `}
+          d={d}
           fill="none"
           stroke="url(#road)"
           strokeWidth="6"
@@ -80,7 +90,7 @@ function Roadmap({ experiences }) {
       </svg>
 
       {experiences.map((e, i) => {
-        const p = points[i] || { x: 140, y: 60 + i * 220 };
+        const p = points[i] || { x: 160, y: 80 + i * 240 };
         const leftSide = i % 2 === 0;
 
         return (
@@ -96,13 +106,11 @@ function Roadmap({ experiences }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.05 * i }}
           >
-            {/* node */}
             <div className="mx-auto h-4 w-4 rounded-full border border-white/30 bg-white/20 backdrop-blur" />
 
-            {/* card */}
             <div
-              className="glass-card mt-3 w-[340px] rounded-3xl p-4"
-              style={{ transform: leftSide ? "translateX(-280px)" : "translateX(40px)" }}
+              className="glass-card mt-3 w-[360px] rounded-3xl p-4"
+              style={{ transform: leftSide ? "translateX(-320px)" : "translateX(40px)" }}
             >
               <div className="flex items-center gap-3">
                 <div className="h-9 w-9 overflow-hidden rounded-xl border border-white/10 bg-white/5">
