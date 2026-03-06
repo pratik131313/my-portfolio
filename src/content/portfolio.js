@@ -36,14 +36,14 @@ export const whoAmI = [
   },
   {
     id: "about-3",
-    title: "F1: Loved Mercedes even before they became popular!",
+    title: "F1: Loved AMG even before they became popular!",
     image: `${base}media/images/merc.webp`,
     content:
       "Since childhood, I always loved Mercedes. I remember seeing a mercedes and asking my dad what car it is. He said mercedes. It took the kid me 2 days to learn the pronounciation, and it has been on my mind ever since. My favourite car brand and my favorite F1 team."
   },
   {
     id: "about-4",
-    title: "MUSIC Et EMD",
+    title: "MUSIC Et EDM",
     image: `${base}media/images/mg.jpg`,
     content:
       "For the longest time, I wanted to become a Dj. Heard Martin Garrix in teenages and suddenly had shift a in my personality, I still Dj whenver I get the chance to. Favourite genres? Bass House, Big room, techno. Fav EDM artists: Garrix, Vluarr, Knock2, Illenium,Rezz. Favourite singers/Bands? Evanescence, Linkin Park, Charlie Puth, Ariana Grande, Motionless in White, Paramore, Juice wrld, Mitraz, Maroon5, Yungblud (The list wont ever stop so imma stop here)"
