@@ -15,7 +15,7 @@ export const profile = {
 export const whoAmI = [
   {
     id: "about-1",
-    title: "A strategist, analyst, manager, a wizard in human form (kinda literally) ",
+    title: "A strategist, analyst, manager; Wizard in a human form (60% literally) ",
     image: `${base}media/images/moi.jpeg`,
     content:
       "I enjoy turning messy information into clear strategic narratives. That is why I like consulting, marketing strategy, and research-heavy problem solving."
