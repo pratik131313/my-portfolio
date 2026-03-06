@@ -1,16 +1,48 @@
 const base = import.meta.env.BASE_URL;
 
 export const profile = {
-  name: "HIT ME UP! If you find my work impressive (I know you will)",
+  name: "This is me!",
   title: "Pratik D Deo",
   location: "Consulting / Strategy / Marketing - Portfolio",
   blurb:
-    "I build strategy + storytelling backed by research. Here are a few projects, decks, and videos to understand me better!",
+    "I build strategy + storytelling backed by research. Here are a few projects, decks, and videos to understand me better! Contact me if you find me or my work impressive(I know you will).",
     schoolLogo: `${base}media/images/edhec.webp`,
   links: [
     { label: "LinkedIn", href: "https://www.linkedin.com/in/pratikddeo/" }
   ],
 };
+
+export const whoAmI = [
+  {
+    id: "about-1",
+    title: "A strategist, analyst, manager, a wizard in human form (kinda literally) ",
+    image: "/media/images/.jpg",
+    content:
+      "I enjoy turning messy information into clear strategic narratives. That is why I like consulting, marketing strategy, and research-heavy problem solving."
+  },
+  {
+    id: "about-2",
+    title: "What I do outside work",
+    image: "/media/images/rm.jpg",
+    content:
+      "Outside projects and internships, I enjoy exploring brands, following retail trends, and understanding how people connect emotionally with products and experiences."
+  },
+  {
+    id: "about-3",
+    title: "Sports and competition",
+    image: "/media/images/mg.jpg",
+    content:
+      "I like sports because they combine discipline, performance, and momentum. They remind me a lot of consulting projects: preparation matters, but execution matters more."
+  },
+  {
+    id: "about-4",
+    title: "Cars, design, and aspiration",
+    image: "/media/images/image-4.jpg",
+    content:
+      "I am drawn to cars for the same reason I like strong brands: design, personality, and precision. Great products always tell a story before anyone explains them."
+  }
+];
+
 
 export const projects = [
   {
