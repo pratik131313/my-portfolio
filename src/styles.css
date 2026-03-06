@@ -117,3 +117,7 @@
 
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { scrollbar-width: none; }
+
+.hero-glass img {
+  filter: drop-shadow(0 8px 24px rgba(0,0,0,.25));
+}
