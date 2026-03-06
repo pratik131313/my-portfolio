@@ -40,16 +40,17 @@ export default function Hero() {
           </div>
 
           {profile.schoolLogo ? (
-            <div className="flex justify-center lg:justify-end">
-              <div className="rounded-3xl border border-white/10 bg-white/5 p-4 backdrop-blur-md">
-                <img
-                  src={profile.schoolLogo}
-                  alt="Business school logo"
-                  className="h-24 w-auto sm:h-32 lg:h-40 object-contain"
-                />
-              </div>
-            </div>
-          ) : null}
+  <div className="flex justify-center lg:justify-end">
+    <div className="h-32 w-56 overflow-hidden rounded-3xl sm:h-40 sm:w-72 lg:h-48 lg:w-80">
+      <img
+        src={profile.schoolLogo}
+        alt="Business school logo"
+        className="h-full w-full object-cover"
+      />
+    </div>
+  </div>
+) : null}
+
         </div>
       </motion.div>
     </section>
