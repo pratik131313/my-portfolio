@@ -16,7 +16,7 @@ function ParticleCanvas() {
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const DPR = Math.min(window.devicePixelRatio || 1, 2);
 
-    const PARTICLE_COUNT = prefersReducedMotion ? 90 : 180;
+    const PARTICLE_COUNT = prefersReducedMotion ? 90 : 300;
     let particles = [];
 
     const resize = () => {
@@ -110,7 +110,7 @@ export default function IntroSplash({ show }) {
         <motion.div
           className="fixed inset-0 z-[120] overflow-hidden bg-black"
           initial={{ opacity: 1 }}
-          exit={{ opacity: 0, transition: { duration: 0.7, ease: "easeInOut" } }}
+          exit={{ opacity: 0, transition: { duration: 2.0, ease: "easeInOut" } }}
         >
           <ParticleCanvas />
 
