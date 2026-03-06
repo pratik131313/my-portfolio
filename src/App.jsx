@@ -6,55 +6,26 @@ import ProjectModal from "./components/ProjectModal.jsx";
 import Footer from "./components/Footer.jsx";
 import ExperienceCard from "./components/ExperienceCard.jsx";
 import ExperienceModal from "./components/ExperienceModal.jsx";
+import { projects, experiences, awards } from "./content/portfolio.js";
 import AwardCard from "./components/AwardCard.jsx";
 import AwardModal from "./components/AwardModal.jsx";
 import IntroSplash from "./components/IntroSplash.jsx";
 
-import { projects, experiences, awards } from "./content/portfolio.js";
-
 export default function App() {
   const ref = useRef(null);
   const [active, setActive] = useState(null);
+  const bgUrl = `${import.meta.env.BASE_URL}media/images/wlp1.jpg`;
   const [expOpen, setExpOpen] = useState(false);
   const [activeAward, setActiveAward] = useState(null);
   const [showIntro, setShowIntro] = useState(true);
 
-  const bgUrl = `${import.meta.env.BASE_URL}media/images/wlp1.jpg`;
-
   useEffect(() => {
-  const timer = window.setTimeout(() => setShowIntro(false), 2800);
-  return () => window.clearTimeout(timer);
-}, []);
+    const timer = window.setTimeout(() => {
+      setShowIntro(false);
+    }, 2800);
 
-return (
-  <>
-    <IntroSplash show={showIntro} />
-
-    <div
-      ref={ref}
-      className="relative min-h-screen glow text-zinc-100"
-      style={{ backgroundImage: `url(${bgUrl})` }}
-    >
-      <div className="relative z-10">
-        <Navbar />
-        <main className="mx-auto max-w-6xl px-5 pb-16">
-          <Hero />
-          {/* rest of your sections */}
-        </main>
-        <Footer />
-      </div>
-
-      <ProjectModal project={active} onClose={() => setActive(null)} />
-      <ExperienceModal
-        open={expOpen}
-        onClose={() => setExpOpen(false)}
-        experiences={experiences}
-      />
-      <AwardModal award={activeAward} onClose={() => setActiveAward(null)} />
-    </div>
-  </>
-);
-
+    return () => window.clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const el = ref.current;
@@ -105,12 +76,8 @@ return (
 
           <section className="mt-14">
             <div className="flex items-end justify-between gap-6">
-              <h2 className="text-xl font-semibold tracking-tight">
-                Work experience
-              </h2>
-              <p className="text-sm text-zinc-400">
-                Recent 4 • click to open roadmap
-              </p>
+              <h2 className="text-xl font-semibold tracking-tight">Work experience</h2>
+              <p className="text-sm text-zinc-400">Recent 4 • click to open roadmap</p>
             </div>
 
             <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -119,6 +86,12 @@ return (
               ))}
             </div>
           </section>
+
+          <ExperienceModal
+            open={expOpen}
+            onClose={() => setExpOpen(false)}
+            experiences={experiences}
+          />
 
           <section className="mt-14">
             <div className="flex items-end justify-between gap-6">
@@ -140,6 +113,8 @@ return (
               ))}
             </div>
           </section>
+
+          <AwardModal award={activeAward} onClose={() => setActiveAward(null)} />
 
           <section
             id="contact"
@@ -194,14 +169,7 @@ return (
         </main>
 
         <Footer />
-
         <ProjectModal project={active} onClose={() => setActive(null)} />
-        <ExperienceModal
-          open={expOpen}
-          onClose={() => setExpOpen(false)}
-          experiences={experiences}
-        />
-        <AwardModal award={activeAward} onClose={() => setActiveAward(null)} />
       </div>
     </>
   );
