@@ -1,11 +1,38 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
+import { trackEvent } from "../lib/analytics";
 
 export default function AwardModal({ award, onClose }) {
+  const hasTrackedOpen = useRef(false);
+
   useEffect(() => {
-    if (!award) return;
-    const onKeyDown = (e) => e.key === "Escape" && onClose();
+    if (!award) {
+      hasTrackedOpen.current = false;
+      return;
+    }
+
+    if (!hasTrackedOpen.current) {
+      trackEvent("view_award_pdf", {
+        award_id: award.id,
+        award_title: award.title,
+        issuer: award.issuer,
+        year: award.year,
+      });
+      hasTrackedOpen.current = true;
+    }
+
+    const onKeyDown = (e) => {
+      if (e.key === "Escape") {
+        trackEvent("close_award_modal", {
+          award_id: award.id,
+          award_title: award.title,
+          close_method: "escape",
+        });
+        onClose();
+      }
+    };
+
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [award, onClose]);
@@ -18,7 +45,14 @@ export default function AwardModal({ award, onClose }) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          onMouseDown={onClose}
+          onMouseDown={() => {
+            trackEvent("close_award_modal", {
+              award_id: award.id,
+              award_title: award.title,
+              close_method: "backdrop",
+            });
+            onClose();
+          }}
         >
           <motion.div
             className="absolute inset-0 bg-black/60"
@@ -45,7 +79,14 @@ export default function AwardModal({ award, onClose }) {
               </div>
 
               <button
-                onClick={onClose}
+                onClick={() => {
+                  trackEvent("close_award_modal", {
+                    award_id: award.id,
+                    award_title: award.title,
+                    close_method: "button",
+                  });
+                  onClose();
+                }}
                 className="rounded-xl border border-white/10 bg-white/10 backdrop-blur px-3 py-2 hover:bg-white/15"
                 aria-label="Close"
               >
@@ -58,11 +99,10 @@ export default function AwardModal({ award, onClose }) {
 
               <div className="rounded-2xl overflow-hidden border border-white/10 bg-black/20 flex-1 min-h-[60vh]">
                 <iframe
-  src={`${award.pdf}#toolbar=0&navpanes=0&scrollbar=0&view=FitH`}
-  title={award.title}
-  className="h-full w-full"
-/>
-
+                  src={`${award.pdf}#toolbar=0&navpanes=0&scrollbar=0&view=FitH`}
+                  title={award.title}
+                  className="h-full w-full"
+                />
               </div>
             </div>
           </motion.div>

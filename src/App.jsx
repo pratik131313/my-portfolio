@@ -10,9 +10,17 @@ import { projects, experiences, awards } from "./content/portfolio.js";
 import AwardCard from "./components/AwardCard.jsx";
 import AwardModal from "./components/AwardModal.jsx";
 import IntroSplash from "./components/IntroSplash.jsx";
+import { initAnalytics, trackEvent } from "./lib/analytics";
 
 export default function App() {
   const ref = useRef(null);
+
+  const heroRef = useRef(null);
+  const workRef = useRef(null);
+  const experienceRef = useRef(null);
+  const awardsRef = useRef(null);
+  const contactRef = useRef(null);
+
   const [active, setActive] = useState(null);
   const bgUrl = `${import.meta.env.BASE_URL}media/images/wlp1.jpg`;
   const [expOpen, setExpOpen] = useState(false);
@@ -25,6 +33,45 @@ export default function App() {
     }, 2800);
 
     return () => window.clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    initAnalytics();
+
+    const sections = [
+      { name: "hero", ref: heroRef },
+      { name: "projects", ref: workRef },
+      { name: "experience", ref: experienceRef },
+      { name: "awards", ref: awardsRef },
+      { name: "contact", ref: contactRef },
+    ];
+
+    const seen = new Set();
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const sectionName = entry.target.getAttribute("data-section");
+
+          if (entry.isIntersecting && sectionName && !seen.has(sectionName)) {
+            seen.add(sectionName);
+            trackEvent("section_view", {
+              section_name: sectionName,
+            });
+          }
+        });
+      },
+      { threshold: 0.35 }
+    );
+
+    sections.forEach(({ name, ref }) => {
+      if (ref.current) {
+        ref.current.setAttribute("data-section", name);
+        observer.observe(ref.current);
+      }
+    });
+
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
@@ -55,9 +102,11 @@ export default function App() {
         <Navbar />
 
         <main className="mx-auto max-w-6xl px-5 pb-16">
-          <Hero />
+          <div ref={heroRef}>
+            <Hero />
+          </div>
 
-          <section id="work" className="mt-10">
+          <section id="work" ref={workRef} className="mt-10">
             <div className="flex items-end justify-between gap-6">
               <h2 className="text-xl font-semibold tracking-tight">
                 Consulting and Marketing Projects
@@ -69,20 +118,46 @@ export default function App() {
 
             <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {projects.map((p) => (
-                <ProjectCard key={p.id} project={p} onOpen={() => setActive(p)} />
+                <ProjectCard
+                  key={p.id}
+                  project={p}
+                  onOpen={() => {
+                    trackEvent("open_project", {
+                      project_id: p.id,
+                      project_title: p.title,
+                      project_type: p.type,
+                    });
+                    setActive(p);
+                  }}
+                />
               ))}
             </div>
           </section>
 
-          <section className="mt-14">
+          <section ref={experienceRef} className="mt-14">
             <div className="flex items-end justify-between gap-6">
-              <h2 className="text-xl font-semibold tracking-tight">Work experience</h2>
-              <p className="text-sm text-zinc-400">Recent 4 • click to open roadmap</p>
+              <h2 className="text-xl font-semibold tracking-tight">
+                Work experience
+              </h2>
+              <p className="text-sm text-zinc-400">
+                Recent 4 • click to open roadmap
+              </p>
             </div>
 
             <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {experiences.slice(0, 4).map((e) => (
-                <ExperienceCard key={e.id} exp={e} onOpen={() => setExpOpen(true)} />
+                <ExperienceCard
+                  key={e.id}
+                  exp={e}
+                  onOpen={() => {
+                    trackEvent("open_experience_roadmap", {
+                      experience_id: e.id,
+                      company: e.company,
+                      role: e.role,
+                    });
+                    setExpOpen(true);
+                  }}
+                />
               ))}
             </div>
           </section>
@@ -93,7 +168,7 @@ export default function App() {
             experiences={experiences}
           />
 
-          <section className="mt-14">
+          <section ref={awardsRef} className="mt-14">
             <div className="flex items-end justify-between gap-6">
               <h2 className="text-xl font-semibold tracking-tight">
                 Awards and achievements
@@ -108,16 +183,27 @@ export default function App() {
                 <AwardCard
                   key={a.id}
                   award={a}
-                  onOpen={() => setActiveAward(a)}
+                  onOpen={() => {
+                    trackEvent("open_award", {
+                      award_id: a.id,
+                      award_title: a.title,
+                      issuer: a.issuer,
+                    });
+                    setActiveAward(a);
+                  }}
                 />
               ))}
             </div>
           </section>
 
-          <AwardModal award={activeAward} onClose={() => setActiveAward(null)} />
+          <AwardModal
+            award={activeAward}
+            onClose={() => setActiveAward(null)}
+          />
 
           <section
             id="contact"
+            ref={contactRef}
             className="mt-14 rounded-2xl hero-glass border border-white/10 p-6"
           >
             <div className="flex items-start justify-between gap-4">
@@ -132,6 +218,10 @@ export default function App() {
                     "Mobile: +33 0745755019\n" +
                     "WhatsApp: +91 7358359203";
                   await navigator.clipboard.writeText(text);
+
+                  trackEvent("copy_contact", {
+                    contact_type: "all",
+                  });
                 }}
               >
                 Copy all
@@ -158,6 +248,10 @@ export default function App() {
                     className="rounded-xl border border-white/10 bg-white/10 px-3 py-2 text-xs text-zinc-100 hover:bg-white/15"
                     onClick={async () => {
                       await navigator.clipboard.writeText(item.value);
+
+                      trackEvent("copy_contact", {
+                        contact_type: item.label.toLowerCase(),
+                      });
                     }}
                   >
                     Copy

@@ -1,11 +1,16 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
+import { trackEvent } from "../lib/analytics";
 
 function AboutCard({ item, reverse }) {
   return (
     <div className="glass-card rounded-3xl overflow-hidden">
-      <div className={`grid md:grid-cols-2 ${reverse ? "md:[&>*:first-child]:order-2" : ""}`}>
+      <div
+        className={`grid md:grid-cols-2 ${
+          reverse ? "md:[&>*:first-child]:order-2" : ""
+        }`}
+      >
         <div className="h-64 md:h-full min-h-[260px] overflow-hidden">
           <img
             src={item.image}
@@ -28,12 +33,35 @@ function AboutCard({ item, reverse }) {
 }
 
 export default function AboutModal({ open, onClose, items }) {
+  const hasTrackedOpen = useRef(false);
+
   useEffect(() => {
-    if (!open) return;
-    const onKeyDown = (e) => e.key === "Escape" && onClose();
+    if (!open) {
+      hasTrackedOpen.current = false;
+      return;
+    }
+
+    if (!hasTrackedOpen.current) {
+      trackEvent("open_about_modal", {
+        modal_name: "who_am_i",
+        item_count: items?.length || 0,
+      });
+      hasTrackedOpen.current = true;
+    }
+
+    const onKeyDown = (e) => {
+      if (e.key === "Escape") {
+        trackEvent("close_about_modal", {
+          modal_name: "who_am_i",
+          close_method: "escape",
+        });
+        onClose();
+      }
+    };
+
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [open, onClose]);
+  }, [open, onClose, items]);
 
   return (
     <AnimatePresence>
@@ -43,7 +71,13 @@ export default function AboutModal({ open, onClose, items }) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          onMouseDown={onClose}
+          onMouseDown={() => {
+            trackEvent("close_about_modal", {
+              modal_name: "who_am_i",
+              close_method: "backdrop",
+            });
+            onClose();
+          }}
         >
           <motion.div
             className="absolute inset-0 bg-black/55"
@@ -62,14 +96,20 @@ export default function AboutModal({ open, onClose, items }) {
           >
             <div className="flex items-start justify-between gap-4 border-b border-white/10 p-4 sm:p-5">
               <div>
-                <h3 className="text-lg font-semibold text-zinc-100">More about me!</h3>
+                <h3 className="text-lg font-semibold text-zinc-100">Who am I</h3>
                 <p className="mt-1 text-sm text-zinc-300/80">
                   A little more beyond the portfolio.
                 </p>
               </div>
 
               <button
-                onClick={onClose}
+                onClick={() => {
+                  trackEvent("close_about_modal", {
+                    modal_name: "who_am_i",
+                    close_method: "button",
+                  });
+                  onClose();
+                }}
                 className="rounded-xl border border-white/10 bg-white/10 px-3 py-2 backdrop-blur hover:bg-white/15"
                 aria-label="Close"
               >
