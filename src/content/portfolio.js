@@ -5,7 +5,7 @@ export const profile = {
   title: "Pratik D Deo",
   location: "Consulting / Strategy / Marketing - Portfolio",
   blurb:
-    "I build strategy + storytelling backed by research. Here are a few projects, decks, and videos to understand me better! Contact me if you find me or my work impressive(I know you will).",
+    "I build strategy + storytelling backed by research, data and creativity. Here are a few projects, decks, and videos to understand me better! Contact me if you find me or my work impressive(I know you will).",
     schoolLogo: `${base}media/images/edhec.webp`,
   links: [
     { label: "LinkedIn", href: "https://www.linkedin.com/in/pratikddeo/" }

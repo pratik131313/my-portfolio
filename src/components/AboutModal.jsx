@@ -62,7 +62,7 @@ export default function AboutModal({ open, onClose, items }) {
           >
             <div className="flex items-start justify-between gap-4 border-b border-white/10 p-4 sm:p-5">
               <div>
-                <h3 className="text-lg font-semibold text-zinc-100">Who am I?</h3>
+                <h3 className="text-lg font-semibold text-zinc-100">More about me!</h3>
                 <p className="mt-1 text-sm text-zinc-300/80">
                   A little more beyond the portfolio.
                 </p>
