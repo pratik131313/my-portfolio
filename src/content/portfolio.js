@@ -112,7 +112,7 @@ export const awards = [
   {
     id: "award-1",
     title: "Best Paper Award",
-    issuer: "WASET Conference",
+    issuer: "WASET-Greece,Athens",
     year: "2022",
     thumbnail: `${base}media/images/bestpaper.png`,
     summary:
@@ -136,7 +136,7 @@ export const awards = [
   {
     id: "award-3",
     title: "WASET International research paper presentation",
-    issuer: "WASET Conference",
+    issuer: "WASET Conference - Greece,Athens",
     year: "2022",
     thumbnail: `${base}media/images/presentation.png`,
     summary:
